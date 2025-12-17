@@ -1,5 +1,7 @@
 package com.TaskTracker.demo.controller;
 
+import com.TaskTracker.demo.DTO.TaskStatusUpdateDTO;
+import com.TaskTracker.demo.DTO.TaskTitleDTO;
 import com.TaskTracker.demo.Service.TaskService;
 import com.TaskTracker.demo.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +26,40 @@ public class TaskController {
     public Task addTask(@RequestBody Task task){
         return service.addTask(task);
     }
-    @PutMapping("/put/{id}")
-    public ResponseEntity<Task> updatestatus(@PathVariable Long id,@RequestParam String Status){
-        return service.updatetask(id, Status)
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateStatus(
+            @PathVariable Long id,
+            @RequestBody TaskStatusUpdateDTO dto) {
+
+        return service.updateStatus(id, dto.getStatus())
                 .map(ResponseEntity::ok)
-                .orElseThrow();
+                .orElse(ResponseEntity.notFound().build());
     }
+    @PutMapping("/updatetitle/{id}")
+    public ResponseEntity<Task> updateTitle(
+            @PathVariable Long id,
+            @RequestBody TaskTitleDTO dto){
+
+        return service.updateTitle(id, dto.getTitle())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
+
+
     @DeleteMapping("/{id}")
     public Task delete(@PathVariable long id){
         return service.deleteTask(id);
     }
+    @GetMapping("/status/{status}")
+    public List<Task> getTasksByStatus(@PathVariable String status) {
+        return service.getTasksByStatus(status);
+    }
 }
+//@PutMapping("/{id}")
+//public ResponseEntity<Task> updatestatus(@PathVariable Long id,@RequestParam String Status){
+//    return service.updatetask(id, Status)
+//            .map(ResponseEntity::ok)
+//            .orElseThrow();
+//}

@@ -25,16 +25,25 @@ public class TaskService {
     public List<Task> getAllTask() {
         return repo.findAll();
     }
-    public Optional<Task> updatetask(long id, String Status){
-        return repo.findById(id).map(task ->
-        {
-            task.setStatus(Status);
+    public Optional<Task> updateStatus(long id, String status){
+        return repo.findById(id).map(task -> {
+            task.setStatus(status);
             return repo.save(task);
         });
+    }
+    public Optional<Task> updateTitle(long id,String title){
+        return repo.findById(id)
+                .map(task -> {
+                    task.setTitle(title);
+                    return repo.save(task);
+                });
     }
 
     public Task deleteTask(Long id){
         repo.deleteById(id);
         return null;
+    }
+    public List<Task> getTasksByStatus(String status) {
+        return repo.findByStatus(status);
     }
 }
