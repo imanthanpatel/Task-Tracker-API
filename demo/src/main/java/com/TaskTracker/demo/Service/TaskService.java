@@ -1,49 +1,26 @@
 package com.TaskTracker.demo.Service;
 
+
+import com.TaskTracker.demo.DTO.RequestDTO;
+import com.TaskTracker.demo.DTO.ResponceDTO;
+
+import com.TaskTracker.demo.DTO.UpdateDTO;
 import com.TaskTracker.demo.model.Task;
-import com.TaskTracker.demo.Repository.TaskRepo;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class TaskService {
+public interface TaskService {
+    Task addTask(RequestDTO dto);
+    List<ResponceDTO> getAllTask();
+    Optional<Task> updateStatus(long id, UpdateDTO dto);
+    void deleteTask(Long id);
+    List<Task> getTasksByStatus(String status);
 
-    private final TaskRepo repo;
 
-    public TaskService(TaskRepo repo) {
-        this.repo = repo;
-    }
 
-    public Task addTask(Task task) {
-        task.setStatus("Pending");
-        return repo.save(task);
 
-    }
 
-    public List<Task> getAllTask() {
-        return repo.findAll();
-    }
-    public Optional<Task> updateStatus(long id, String status){
-        return repo.findById(id).map(task -> {
-            task.setStatus(status);
-            return repo.save(task);
-        });
-    }
-    public Optional<Task> updateTitle(long id,String title){
-        return repo.findById(id)
-                .map(task -> {
-                    task.setTitle(title);
-                    return repo.save(task);
-                });
-    }
 
-    public Task deleteTask(Long id){
-        repo.deleteById(id);
-        return null;
-    }
-    public List<Task> getTasksByStatus(String status) {
-        return repo.findByStatus(status);
-    }
+
 }

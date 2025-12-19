@@ -1,10 +1,13 @@
 package com.TaskTracker.demo.controller;
 
-import com.TaskTracker.demo.DTO.TaskStatusUpdateDTO;
-import com.TaskTracker.demo.DTO.TaskTitleDTO;
+import com.TaskTracker.demo.DTO.RequestDTO;
+import com.TaskTracker.demo.DTO.ResponceDTO;
+import com.TaskTracker.demo.DTO.UpdateDTO;
+import com.TaskTracker.demo.Mapper.TaskMapper;
 import com.TaskTracker.demo.Service.TaskService;
 import com.TaskTracker.demo.model.Task;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,53 +16,50 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/task")
 public class TaskController {
-    @Autowired
-    private TaskService service;
-//    private Object ResponseEntity;
 
-    @GetMapping()
-    public List<Task> getAllTask(){
-        return  service.getAllTask();
+    private final TaskService service;
+
+    public TaskController(TaskService service) {
+        this.service = service;
     }
 
-    @PostMapping()
-    public Task addTask(@RequestBody Task task){
-        return service.addTask(task);
+    // ✅ GET all tasks
+    @GetMapping("/all")
+    public ResponseEntity<List<ResponceDTO>> getAllTask() {
+        List<ResponceDTO> tasks = service.getAllTask();
+        return ResponseEntity.ok(tasks);
     }
-    @PutMapping("/{id}")
+
+    // ✅ ADD task (REQUEST → ENTITY → RESPONSE)
+    @PostMapping("/add")
+    public ResponseEntity<ResponceDTO> addTask(@RequestBody RequestDTO dto) {
+        Task createdTask = service.addTask(dto);
+        ResponceDTO response = TaskMapper.toresponcedto(createdTask);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // ✅ UPDATE task
+    @PatchMapping("/update/{id}")
     public ResponseEntity<Task> updateStatus(
             @PathVariable Long id,
-            @RequestBody TaskStatusUpdateDTO dto) {
+            @RequestBody UpdateDTO dto) {
 
-        return service.updateStatus(id, dto.getStatus())
+        return service.updateStatus(id, dto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @PutMapping("/updatetitle/{id}")
-    public ResponseEntity<Task> updateTitle(
-            @PathVariable Long id,
-            @RequestBody TaskTitleDTO dto){
 
-        return service.updateTitle(id, dto.getTitle())
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-
-    }
-
-
-
+    // ✅ DELETE task
     @DeleteMapping("/{id}")
-    public Task delete(@PathVariable long id){
-        return service.deleteTask(id);
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        service.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
+
+    // ✅ GET tasks by status
     @GetMapping("/status/{status}")
-    public List<Task> getTasksByStatus(@PathVariable String status) {
-        return service.getTasksByStatus(status);
+    public ResponseEntity<List<Task>> getTasksByStatus(@PathVariable String status) {
+        List<Task> tasks = service.getTasksByStatus(status);
+        return ResponseEntity.ok(tasks);
     }
 }
-//@PutMapping("/{id}")
-//public ResponseEntity<Task> updatestatus(@PathVariable Long id,@RequestParam String Status){
-//    return service.updatetask(id, Status)
-//            .map(ResponseEntity::ok)
-//            .orElseThrow();
-//}
