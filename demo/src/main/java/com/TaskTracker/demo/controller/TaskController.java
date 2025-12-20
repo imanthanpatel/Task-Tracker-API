@@ -23,14 +23,14 @@ public class TaskController {
         this.service = service;
     }
 
-    // ✅ GET all tasks
+    //  GET all tasks
     @GetMapping("/all")
     public ResponseEntity<List<ResponceDTO>> getAllTask() {
         List<ResponceDTO> tasks = service.getAllTask();
         return ResponseEntity.ok(tasks);
     }
 
-    // ✅ ADD task (REQUEST → ENTITY → RESPONSE)
+    //  ADD task (REQUEST → ENTITY → RESPONSE)
     @PostMapping("/add")
     public ResponseEntity<ResponceDTO> addTask(@RequestBody RequestDTO dto) {
         Task createdTask = service.addTask(dto);
@@ -38,15 +38,18 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // ✅ UPDATE task
-    @PatchMapping("/update/{id}")
-    public ResponseEntity<Task> updateStatus(
+    // UPDATE task
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponceDTO> updateStatus(
             @PathVariable Long id,
             @RequestBody UpdateDTO dto) {
 
-        return service.updateStatus(id, dto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Task updatedTask = service.updateStatus(id, dto)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        ResponceDTO response = TaskMapper.toresponcedto(updatedTask);
+
+        return ResponseEntity.ok(response);
     }
 
     // ✅ DELETE task
@@ -56,10 +59,12 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ GET tasks by status
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<Task>> getTasksByStatus(@PathVariable String status) {
+    public ResponseEntity<List<ResponceDTO>> getTasksByStatus(@PathVariable String status) {
         List<Task> tasks = service.getTasksByStatus(status);
-        return ResponseEntity.ok(tasks);
+        List<ResponceDTO> response = tasks.stream()
+                .map(TaskMapper::toresponcedto)
+                .toList();
+        return ResponseEntity.ok(response);
     }
 }

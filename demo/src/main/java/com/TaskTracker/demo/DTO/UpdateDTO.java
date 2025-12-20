@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class UpdateDTO {
     private String status;
-    private String title;
+//    private String title;
 }

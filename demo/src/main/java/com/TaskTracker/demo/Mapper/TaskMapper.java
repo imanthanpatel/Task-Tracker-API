@@ -17,13 +17,13 @@ public class TaskMapper {
 
             UpdateDTO dto = new UpdateDTO();
             dto.setStatus(task.getStatus());
-            dto.setTitle(task.getTitle());
+//            dto.setTitle(task.getTitle());
             return dto;
         }
                 public static Task toupdateentity(UpdateDTO dto){
                     Task task = new Task();
                     task.setStatus(dto.getStatus());
-                    task.setTitle(dto.getTitle());
+//                    task.setTitle(dto.getTitle());
                     return task;
                 }
 
@@ -36,6 +36,7 @@ public class TaskMapper {
                     dto.setDescription(task.getDescription());
                     dto.setCreatedAt(task.getCreatedAt());
                     dto.setUpdatedAt(task.getUpdatedAt());
+                    dto.setStatus(task.getStatus());
                     return dto;
 
             }
@@ -50,7 +51,7 @@ public class TaskMapper {
                                         Task task = new Task();
                                         task.setTitle(dto.getTitle());
                                         task.setDescription(dto.getDescription());
-
+                                        task.setStatus(dto.getStatus());
                                         return task;
                     }
 }

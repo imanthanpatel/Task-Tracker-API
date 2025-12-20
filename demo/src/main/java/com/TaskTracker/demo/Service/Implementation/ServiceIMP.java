@@ -44,8 +44,9 @@ public class ServiceIMP implements TaskService {
     public Optional<Task> updateStatus(long id, UpdateDTO dto) {
         return repo.findById(id)
                 .map(task -> {
-                    task.setStatus(dto.getStatus());
-                    task.setTitle(dto.getTitle());
+                    task.setStatus(Optional.ofNullable(dto.getStatus())
+                            .orElse("pending"));
+
                     return repo.save(task);
                 });
     }
