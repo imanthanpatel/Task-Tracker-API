@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="491e9d81-4c98-4ee8-b8b4-356c52e2c115" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/DTO/RequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/DTO/RequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/DTO/UpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/DTO/UpdateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/Mapper/TaskMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/Mapper/TaskMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/Service/Implementation/ServiceIMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/Service/Implementation/ServiceIMP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/TaskTracker/demo/model/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

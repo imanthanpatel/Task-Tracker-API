@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/task")
 public class TaskController {
@@ -35,7 +36,8 @@ public class TaskController {
     public ResponseEntity<ResponceDTO> addTask(@RequestBody RequestDTO dto) {
         Task createdTask = service.addTask(dto);
         ResponceDTO response = TaskMapper.toresponcedto(createdTask);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.ok(response);
     }
 
     // UPDATE task
