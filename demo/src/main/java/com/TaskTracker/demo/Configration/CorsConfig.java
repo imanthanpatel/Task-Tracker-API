@@ -1,4 +1,4 @@
-package com.TaskTracker.demo.Congigration;
+package com.TaskTracker.demo.Configration;
 
 
 import org.springframework.context.annotation.Bean;
