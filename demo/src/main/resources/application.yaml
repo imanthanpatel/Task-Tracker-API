@@ -22,12 +22,33 @@
 
 
 
+#server:
+#  port: 8080
+#
+#spring:
+#  application:
+#    name: demo
+#
+#  datasource:
+#    url: jdbc:postgresql://db.skgovyttfbkpqflmapnb.supabase.co:5432/postgres?sslmode=require
+#    username: postgres
+#    password: manthan2408__@
+#    driver-class-name: org.postgresql.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 server:
   port: 8080
 
 spring:
   application:
-    name: demo
+    name: supabase-demo
 
   datasource:
     url: jdbc:postgresql://db.skgovyttfbkpqflmapnb.supabase.co:5432/postgres?sslmode=require
@@ -36,13 +57,24 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: update   # use validate in production
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
+  sql:
+    init:
+      mode: always
 
-frontend:
-  url : https://froentend-rho.vercel.app/
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+#
+#
+#frontend:
+#  url : https://froentend-rho.vercel.app/
