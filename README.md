@@ -59,7 +59,5 @@ src/main/java
     └── Configuration     # Application configurations
 ```
 
-##  📬 API Endpoints
-http://localhost:8080/api/task
 
 
